@@ -1,0 +1,147 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: influencer
+    description: Influencer matching and outreach
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /recommend:
+    post:
+      operationId: recommendInfluencers
+      tags: [influencer]
+      summary: Get influencer recommendations
+      description: Returns top influencer matches based on product and target audience
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RecommendRequest"
+      responses:
+        "200":
+          description: List of recommended influencers
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecommendResponse"
+  /outreach:
+    post:
+      operationId: generateOutreach
+      tags: [influencer]
+      summary: Generate outreach message
+      description: Generates a personalized outreach message for a specific influencer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OutreachRequest"
+      responses:
+        "200":
+          description: Generated outreach message
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OutreachResponse"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    Influencer:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        platform:
+          type: string
+          enum: [Instagram, TikTok, YouTube]
+        niche:
+          type: string
+        audience:
+          type: string
+        audienceSize:
+          type: string
+          enum: [Small, Medium, Large]
+        engagement:
+          type: string
+        score:
+          type: number
+        reasoning:
+          type: string
+      required:
+        - id
+        - name
+        - platform
+        - niche
+        - audience
+        - audienceSize
+        - engagement
+        - score
+        - reasoning
+    RecommendRequest:
+      type: object
+      properties:
+        product:
+          type: string
+        audience:
+          type: string
+      required:
+        - product
+        - audience
+    RecommendResponse:
+      type: object
+      properties:
+        influencers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Influencer"
+      required:
+        - influencers
+    OutreachRequest:
+      type: object
+      properties:
+        influencer:
+          $ref: "#/components/schemas/Influencer"
+        product:
+          type: string
+        audience:
+          type: string
+      required:
+        - influencer
+        - product
+        - audience
+    OutreachResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
