@@ -1,0 +1,110 @@
+You are modifying the /outreach endpoint.
+
+DO NOT add OpenAI back.
+DO NOT change UI.
+
+Goal:
+1. Make messages longer (real email format)
+2. Make regenerate button actually produce different messages
+3. Keep everything deterministic and fast
+
+IMPLEMENT THESE CHANGES:
+
+1. ADD MULTIPLE EMAIL TEMPLATES (at least 5)
+
+Each template should:
+- be 3–5 sentences
+- include greeting, context, value, and call-to-action
+- feel like a real outreach email
+
+Example templates:
+
+Template 1 (professional):
+"Hi {name},
+
+I’ve been following your work in the {niche} space and really appreciate the way you engage your audience. We’re currently building {product}, and I think it could align well with the type of content you create.
+
+Given your audience, this could be a strong fit, and I’d love to explore a potential collaboration with you.
+
+Would you be open to a quick chat this week?
+
+Best,
+[Your Name]"
+
+Template 2 (casual):
+"Hey {name},
+
+I came across your {niche} content and thought it was really interesting, especially how you connect with your audience. I’m working on {product}, and I think it could naturally fit into your content.
+
+I’d love to collaborate in a way that feels authentic to your style.
+
+Let me know if you’d be open to chatting!
+
+Thanks,
+[Your Name]"
+
+Template 3 (enthusiastic):
+"Hi {name},
+
+I’ve been really impressed with your content in the {niche} space. Your audience seems highly engaged, and I think what we’re building could genuinely resonate with them.
+
+We’re currently working on {product}, and I’d love to partner with you to showcase it in a way that fits your content.
+
+Would you be open to discussing this further?
+
+Best,
+[Your Name]"
+
+(also add 2 more similar variations)
+
+---
+
+2. MAKE REGENERATE ACTUALLY WORK
+
+Right now it returns the same message every time.
+
+Fix:
+
+- Add a "variant" input (or random index) to select different templates
+- Use either:
+  - random selection
+  OR
+  - cycle through templates using a counter
+
+Example:
+template_index = random.randint(0, 4)
+
+OR:
+template_index = (hash(name + product) + timestamp) % number_of_templates
+
+---
+
+3. ADD LIGHT PERSONALIZATION RULES
+
+Enhance content using niche keywords:
+
+If niche contains:
+- "Tech" → mention "products", "reviews", "tools"
+- "Beauty" → mention "tutorials", "routines"
+- "Fitness" → mention "fitness", "wellness"
+- "Gaming" → mention "gaming content"
+- "Sustainability" → mention "eco-conscious audience"
+
+Inject 1 phrase into the message.
+
+---
+
+4. ENSURE:
+
+- Every regenerate click produces a different message
+- Messages are slightly different across influencers
+- Messages are 3–5 sentences (not 1–2 lines)
+- Always return a valid string
+
+DO NOT:
+- change endpoints
+- change frontend
+- add AI back
+
+Goal:
+Outreach messages should feel like real emails, slightly personalized, and visibly different each time regenerate is clicked.

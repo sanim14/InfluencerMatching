@@ -1,0 +1,93 @@
+You are a senior full-stack engineer and product designer.
+
+Build a clean, modern MVP web app for an AI-powered influencer matching platform.
+
+IMPORTANT:
+The UI must look like a real product, NOT an AI demo tool.
+Avoid generic AI styling. Use clean spacing, clear hierarchy, and simple modern design similar to Notion, Stripe, or Linear.
+
+TECH STACK:
+- Frontend: React (functional components)
+- Backend: Python FastAPI
+- Styling: Tailwind CSS (clean, minimal)
+- No database (use hardcoded dataset)
+- Use OpenAI API
+
+CORE UX REQUIREMENTS:
+
+1. INPUT PAGE
+- Centered card layout
+- Two inputs:
+  - Product description
+  - Target audience
+- Large submit button
+- Clean spacing and typography
+
+2. RESULTS PAGE
+- Display influencer cards in a grid (2–3 columns)
+- Each card should include:
+  - Name
+  - Platform
+  - Niche
+  - Match score (badge style)
+  - Short reasoning (1–2 lines)
+- Make cards look clean and modern (rounded corners, soft shadows)
+
+3. FILTERING (NEW FEATURE)
+- Add a top filter bar:
+  - Platform dropdown (Instagram, TikTok, YouTube)
+  - Audience size dropdown (Small, Medium, Large)
+- Filters should update results instantly
+
+4. OUTREACH FEATURE
+- Each card has:
+  - “Generate Outreach” button
+- When clicked:
+  - Show message in expandable section under the card
+
+5. REGENERATE BUTTON (NEW FEATURE)
+- Add “Regenerate” button under the message
+- Re-calls API and replaces message
+
+6. EXPORT FEATURE (NEW FEATURE)
+- Add two buttons:
+  - “Copy Message”
+  - “Open in Gmail”
+- Gmail button should open:
+  https://mail.google.com/mail/?view=cm&fs=1&body=<message>
+
+7. LOADING + UX DETAILS
+- Show loading spinner when generating results or outreach
+- Smooth transitions when content appears
+- Disable buttons while loading
+- Keep UI responsive and clean
+
+BACKEND:
+
+POST /recommend
+- Input: product + audience
+- Output: top 5 influencers with:
+  name, platform, niche, audience, engagement, score, reasoning
+
+POST /outreach
+- Input: influencer + product + audience
+- Output: personalized outreach message
+
+DATASET:
+- Hardcode 10–15 influencers with:
+  name, platform, niche, audience description, engagement level
+
+PROMPT LOGIC:
+- Matching: prioritize niche alignment and audience match
+- Outreach: include influencer tone, audience, and product context
+
+DESIGN RULES:
+- No clutter
+- No emojis
+- No excessive colors
+- Use neutral palette (white, gray, black, subtle blue accent)
+- Make it feel like a real SaaS product
+
+DELIVER:
+- Full code (frontend + backend)
+- Clear instructions to run locally
